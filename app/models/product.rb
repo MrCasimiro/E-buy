@@ -1,5 +1,7 @@
 class Product < ApplicationRecord
-	has_many :photos
-
+	belongs_to :user
 	validates :name, :description, :price, presence: true
+
+	mount_uploaders :photos, PhotoUploader
+	serialize :photos, JSON
 end

@@ -1,0 +1,12 @@
+<div class="row" align="center">
+	<div class="col-md-12">
+		<%= simple_form_for @product do |p| %>
+			<%= p.file_field :photos, multiple: true, accept: "image/jpeg, image/jpg, image/gif, image/png" %>
+			<%= p.hidden_field :user_id, value: current_user.id %>
+			<%= p.input :name, label: "Nome:  " %>
+			<%= p.input :price, as: :currency, currency: "R$", label: "Preço: " %>
+			<%= p.input :description, label: "Descrição: " %>
+			<%= p.button :submit, label: "Enviar!" %>
+		<% end %>
+	</div>
+</div>
