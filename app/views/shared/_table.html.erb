@@ -1,0 +1,62 @@
+<%= stylesheet_link_tag "index" %>
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<%= render 'shared/sidebar' %>
+		</div>
+		<div class="col col-lg-10" style="top: 40px">
+			<div class="row">
+				<div class="col-lg-8">
+    	    		<h1 class="page-header">Lista de produtos</h1>
+            		<table class="table table-stripped table-bordered">
+      					<thead>
+        					<tr>
+					          <th>Imagem</th>
+					          <th>Nome</th>
+					          <th>Descrição</th>
+					          <th>Preço</th>
+					        </tr>
+      					</thead>
+      					<tbody>
+      						<% 	count = 0
+      							@products.each do |prod|
+      							count += 1
+      						%>
+	        					<tr>
+	          						<td>
+	          							<%= image_tag(prod.photos[0].url, class: "img-circle", size: 120) %>
+	          						</td>
+	          						<td><%= prod.name %></td>
+	          						<td style="width: 600px"><%= prod.description %></td>
+	          						<td><%= prod.price %></td>
+	          						<% if action_name == "my_products" %>
+	          							<td style="border: hidden; border-left: 1px;">
+	          								<ul style="list-style-type: none;">
+	          									<li>
+	          										<%= link_to edit_product_path(id: prod.id) do %>
+	          											<button class="btn btn-warning">Editar</button>
+	          										<% end %>
+	          									</li>
+	          									<br />
+	          									<li>
+	          										<%= button_to 'Remover', { action: :destroy,
+	          										 	id: prod.id, remote: true }, method: :delete, class: "btn btn-danger" %>
+	          									</li>
+	          								</ul>
+	          							</td>
+					          		<% end %>
+	        					</tr>
+	        				<% end %>
+        				</tbody>
+        			</table>
+        			<div class="digg_pagination">
+    					<div class="page_info">
+      						<%= page_entries_info @products %>
+    					</div>
+    					<%= will_paginate @products, :container => false %>
+  					</div>
+        		</div>
+        	</div>
+		</div>
+	</div>
+</div>

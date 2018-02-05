@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<div class="col-9">
-		<a class="navbar-brand" <%= link_to "Home", root_path %></a>
+		<a class="navbar-brand" <%= link_to "Web Seller", root_path %></a>
 	</div>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -16,7 +16,8 @@
 					<ul class="dropdown-menu">	
 						<% if user_signed_in? %>
 							<li>
-								<a class="dropdown-item" <%= link_to "Acessa Conta", root_path %></a>
+								<a class="dropdown-item" <%= link_to "Meus produtos",
+									my_products_new_product_path %></a> 
 							</li>
 							<li>
 								<a class="dropdown-item" <%= link_to "Preferências", edit_user_registration_path %><a/>

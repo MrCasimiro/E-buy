@@ -1,4 +1,9 @@
+<%= stylesheet_link_tag "sidebar" %>
 <div class="sidenav">
-
-  <a href="#">Search</a>
+  <%= form_tag(products_path, method: :get) do %>
+  	<%= text_field_tag :term, params[:term] %>
+  	<div style="text-align: center;">
+  		<%= submit_tag 'Procurar', name: nil, class: "btn btn-search" %>
+  	</div>
+  <% end %>
 </div>

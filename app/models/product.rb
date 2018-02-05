@@ -4,4 +4,14 @@ class Product < ApplicationRecord
 
 	mount_uploaders :photos, PhotoUploader
 	serialize :photos, JSON
+
+	self.per_page = 2
+
+	def self.search(term)
+		if term
+			where('name LIKE ?', "%#{term}%").order('id DESC')
+		else
+			order('id DESC')
+		end
+	end
 end
