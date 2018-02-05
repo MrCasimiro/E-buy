@@ -1,0 +1,21 @@
+<div class="row" align="center">
+	<div class="col-md-12">
+		<h2>Adicionar foto</h2>
+		<%= simple_form_for [@images[0].product, @new_image], :html => {:class => 'form-basic'} do |p| %>
+			<%= p.file_field :photo, accept: "image/jpeg, image/jpg, image/gif,
+					image/png" %>
+			<%= p.hidden_field :product_id, value: @images[0].product_id %>
+			<%= p.button :submit, "Adicionar imagem!", class: "btn btn-primary" %>
+		<% end %>
+		<br />
+		<h2>Remover Foto</h2>
+		<em><h6>Obs: Antes de remover todas as fotos, deixe ao menos uma salva</h6></em> 
+		<% for p in @images %>
+			<%= image_tag(p.photo.thumb.url, class: "img-circle", size: 120, align: "middle") %>
+			<%= button_to 'Remover foto', { action: :destroy, id: p.id, product_id: p.product_id,
+			 remote: true },
+				method: :delete, class: "btn btn-danger" %>
+		<% end %>
+		<br />
+	</div>
+</div>

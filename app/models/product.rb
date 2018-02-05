@@ -1,17 +1,20 @@
 class Product < ApplicationRecord
 	belongs_to :user
-	validates :name, :description, :price, presence: true
+	has_many :images, :dependent => :destroy
+	accepts_nested_attributes_for :images, :allow_destroy => true
 
-	mount_uploaders :photos, PhotoUploader
-	serialize :photos, JSON
+	validates :name, :description, :price, presence: true
 
 	self.per_page = 5
 
-	def self.search(term)
+	private
+
+	def self.search(term, client_id)
 		if term
-			where('name LIKE ?', "%#{term}%").order('id DESC')
+			where('name LIKE ? AND user_id != ?', "%#{term}%", 
+				client_id).order('id DESC')
 		else
-			order('id DESC')
+			where.not(user_id: client_id).order('id DESC')
 		end
 	end
 end

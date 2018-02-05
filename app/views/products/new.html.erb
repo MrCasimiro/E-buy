@@ -1,13 +1,21 @@
 <div class="row" align="center">
 	<div class="col-md-12">
-		<%= simple_form_for @product do |p| %>
-			<%= p.file_field :photos, multiple: true, 
-				accept: "image/jpeg, image/jpg, image/gif, image/png" %><br />
+		<%= simple_form_for @product, :html => {:class => 'form-basic'} do |p| %>
 			<%= p.hidden_field :user_id, value: current_user.id %><br />
 			<%= p.input :name, label: false, :placeholder => "Nome do produto" %><br />
 			<%= p.input :price, label: false, :placeholder => "Preço do produto" %><br />
 			<%= p.input :description, label: false, :placeholder => "Descrição do produto" %>
-			<%= p.button :submit, class: "btn btn-primary" %>
+			<%= p.nested_fields_for :images do |pp| %>
+				<%= pp.remove_nested_fields_link 'Remover esta foto' %>
+				<br>
+				<%= pp.file_field :photo, accept: "image/jpeg, image/jpg, image/gif,
+					image/png" %>
+				<%= pp.input :product_id, :as => :hidden %>
+			<% end %>
+			<%= p.add_nested_fields_link :images, 'Adicione mais fotos!' %>
+			<br>
+		<%= p.button :submit, class: "btn btn-primary" %>
+
 		<% end %>
 	</div>
 </div>

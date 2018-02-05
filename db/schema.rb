@@ -12,6 +12,11 @@
 
 ActiveRecord::Schema.define(version: 20180201080752) do
 
+  create_table "images", force: :cascade do |t|
+    t.integer "product_id"
+    t.string "photo"
+  end
+
   create_table "products", force: :cascade do |t|
     t.integer "user_id"
     t.string "name"
@@ -19,7 +24,6 @@ ActiveRecord::Schema.define(version: 20180201080752) do
     t.text "description", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "photos"
   end
 
   create_table "users", force: :cascade do |t|

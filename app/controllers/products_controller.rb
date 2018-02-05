@@ -2,7 +2,8 @@ class ProductsController < ApplicationController
 	before_action :authenticate_user!, only: [:new, :create]
 
 	def index
-		@products = Product.search(params[:term]).paginate(:page => params[:page])
+		@products = Product.search(params[:term], 
+			current_user.id).paginate(:page => params[:page])
 	end
 
 	def new
@@ -24,6 +25,7 @@ class ProductsController < ApplicationController
 			raise ActionController::RoutingError.new('Not Found')
 		else
 			@product = tmp
+			@images = @product.images
 		end
 	end
 
@@ -44,7 +46,7 @@ class ProductsController < ApplicationController
 
 	def destroy
 		@product = Product.find(params[:id])
-		@product.destroy
+		@product.destroy!
 		redirect_to root_path
 	end
 
@@ -56,6 +58,7 @@ class ProductsController < ApplicationController
 	private
 
 	def product_params
-		params.require(:product).permit(:name, :user_id , :price, :description, {photos: []}, :term)
+		params.require(:product).permit(:name, :user_id , :price, :description, :term, 
+			:images_attributes => [:photo, :product_id])
 	end
 end

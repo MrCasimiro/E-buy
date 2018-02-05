@@ -1,15 +1,15 @@
 <div class="row" align="center">
 	<div class="col-md-12">
-		<% for photo in @product.photos %>
-			<%= image_tag(photo, class: "img-circle", size: 100, align: "middle") %>
+		<% @images.each do |p| %>
+			<%= image_tag(p.photo.url, size: 120) %><br />
 		<% end %>
+		<br />
 		<%= simple_form_for @product do |p| %>
-			<%= p.file_field :photos, multiple: true, accept: "image/jpeg, image/jpg, image/gif, image/png" %>
 			<%= p.hidden_field :user_id, value: current_user.id %>
-			<%= p.input :name %>
-			<%= p.input :price %>
-			<%= p.input :description %>
-			<%= p.button :submit %>
+			<%= p.input :name, placeholder: "E-mail", label: "E-mail:" %>
+			<%= p.input :price, placeholder: "Preço", label: "Preço: R$" %>
+			<%= p.input :description, placeholder: "Descrição", label: "Descrição" %>
+		<%= p.button :submit, "Atualizar produto!", class: "btn btn-primary" %>
 		<% end %>
 	</div>
 </div>

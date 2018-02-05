@@ -1,4 +1,5 @@
 <%= stylesheet_link_tag "index" %>
+
 <div class="container">
 	<div class="row">
 		<div class="col">
@@ -16,7 +17,7 @@
       						%>
 	        					<tr>
 	          						<td>
-	          							<%= image_tag(prod.photos[0].url, class: "img-circle",
+	          							<%= image_tag(prod.images[0].photo.url, class: "img-circle",
 	          								height: 140, width: 200) %>
 	          						</td>
 	          						<td style="text-align: center; width: 600px">
@@ -39,10 +40,16 @@
 	          								<ul style="list-style-type: none;">
 	          									<li>
 	          										<%= link_to edit_product_path(id: prod.id) do %>
-	          											<button class="btn btn-warning">Editar</button>
+	          											<button class="btn btn-success">Editar descrição</button>
 	          										<% end %>
 	          									</li>
-	          									<br />
+	          									
+	          									<li>
+	          										<%= link_to product_new_photos_path(product_id: prod.id) do %>
+	          											<button class="btn btn-info">Editar fotos</button>
+	          										<% end %>
+	          									</li>
+	          									
 	          									<li>
 	          										<%= button_to 'Remover', { action: :destroy,
 	          										 	id: prod.id, remote: true }, method: :delete, class: "btn btn-danger" %>

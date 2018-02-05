@@ -12,16 +12,16 @@
 					<em><%= @product.created_at.strftime("Criado em: %d/%m/%y") %></em>
 
 					<div id="carouselExampleControls" class="carousel slide" data-ride="carousel"
-						style="padding-left: 150px; height: 300px" margin: auto">
+						style="margin-left: 150px; height: 300px margin: auto">
 						<div class="carousel-inner" role="listbox">
-						<% for i in 0..(@product.photos.length-1) %>
+						<% for i in 0..(@product.images.length-1) %>
 
 							<% if i == 0 %>
 								<div class="carousel-item active">
 							<% else %>
 								<div class="carousel-item">
 							<% end %>
-							    <%= image_tag(@product.photos[i].url, class: "img-circle",
+							    <%= image_tag(@product.images[i].photo.url, class: "img-circle",
 									alt: "#{i} slide", height: '300', width: '800', 
 									class: "d-block img-fluid") %>
 							</div>
