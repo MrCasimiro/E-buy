@@ -1,0 +1,64 @@
+<%= stylesheet_link_tag "index" %>
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<%= render 'shared/sidebar' %>
+		</div>
+		<div class="col col-lg-10" style="top: 40px">
+			<div class="row">
+				<div class="col-lg-8">
+					<h1 class="page-header">Informações do produto</h1>
+					<table class="table table-stripped table-bordered">
+						<tbody>
+							<tr style="height: 150px;">
+								<td style="text-align: center;">
+									<%= image_tag(@product.photos[0].url, class: "img-circle", size: 120) %>
+								</td>
+								<td>
+									<div style="text-align: center; width: 400px">
+										<strong><%= "#{@product.name}" %></strong>
+									</div>
+									<div style="float: left; padding-top: 90px;">
+										<em><%= "R$ #{@product.price}" %></em>
+									</div>
+									<div style="float: right; padding-top: 90px;">
+										<em><%= @product.created_at.strftime("Criado em: %d/%m/%y") %></em>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<table class="table table-stripped table-bordered">
+						<tbody>
+							<tr>
+								<td >
+									<div style="text-align: center;">
+										<b><em>Informações do vendedor:</em></b>
+									</div>
+									<div style="float: left;">
+										<b>Nome: </b><em><%= @salesman.name %></em>
+									</div>
+									<div style="float: right;">
+										<b>Telefone: </b><em><%= @salesman.phone %></em>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<b><em>Descrição</em></b>
+									<ul>
+										<li style="list-style-type: none;">
+											<div style="width: 800px; height: 250px;">
+												<%= @product.description %>
+											</div>
+										</li>
+									</ul>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

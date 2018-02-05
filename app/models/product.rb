@@ -5,7 +5,7 @@ class Product < ApplicationRecord
 	mount_uploaders :photos, PhotoUploader
 	serialize :photos, JSON
 
-	self.per_page = 2
+	self.per_page = 5
 
 	def self.search(term)
 		if term

@@ -38,6 +38,8 @@ class ProductsController < ApplicationController
 	end
 
 	def show
+		@product = Product.find(params[:id])
+		@salesman = User.find(@product.user_id)
 	end
 
 	def destroy

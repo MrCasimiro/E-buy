@@ -1,9 +1,12 @@
 <%= stylesheet_link_tag "sidebar" %>
-<div class="sidenav">
-  <%= form_tag(products_path, method: :get) do %>
-  	<%= text_field_tag :term, params[:term] %>
-  	<div style="text-align: center;">
-  		<%= submit_tag 'Procurar', name: nil, class: "btn btn-search" %>
-  	</div>
-  <% end %>
+<div class="sidenav" style="text-align: center;">
+	<div style="padding-top: 50px;">
+		<%= form_tag(products_path, method: :get) do %>
+			<%= text_field_tag :term, params[:term], :placeholder => "Nome do produto" %>
+			<div style="text-align: center;">
+				<br />
+				<%= submit_tag 'Buscar', name: nil, class: "btn btn-primary" %>
+			</div>
+		<% end %>
+	</div>
 </div>
