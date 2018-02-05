@@ -58,7 +58,9 @@ gem 'bootstrap', '~> 4.0.0'
 gem 'autoprefixer-rails'
 gem 'jquery-rails'
 gem 'carrierwave', '~> 1.0'
+gem 'mini_magick'
 gem 'simple_form'
 gem 'will_paginate', '~> 3.1.0'
+gem 'flex-slider-rails'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

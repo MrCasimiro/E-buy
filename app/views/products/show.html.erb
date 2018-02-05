@@ -1,4 +1,5 @@
 <%= stylesheet_link_tag "index" %>
+
 <div class="container">
 	<div class="row">
 		<div class="col">
@@ -7,27 +8,35 @@
 		<div class="col col-lg-10" style="top: 40px">
 			<div class="row">
 				<div class="col-lg-8">
-					<h1 class="page-header">Informações do produto</h1>
-					<table class="table table-stripped table-bordered">
-						<tbody>
-							<tr style="height: 150px;">
-								<td style="text-align: center;">
-									<%= image_tag(@product.photos[0].url, class: "img-circle", size: 120) %>
-								</td>
-								<td>
-									<div style="text-align: center; width: 400px">
-										<strong><%= "#{@product.name}" %></strong>
-									</div>
-									<div style="float: left; padding-top: 90px;">
-										<em><%= "R$ #{@product.price}" %></em>
-									</div>
-									<div style="float: right; padding-top: 90px;">
-										<em><%= @product.created_at.strftime("Criado em: %d/%m/%y") %></em>
-									</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
+					<h1 class="page-header"><%= "#{@product.name}" %></h1>
+					<em><%= @product.created_at.strftime("Criado em: %d/%m/%y") %></em>
+
+					<div id="carouselExampleControls" class="carousel slide" data-ride="carousel"
+						style="padding-left: 150px; height: 300px" margin: auto">
+						<div class="carousel-inner" role="listbox">
+						<% for i in 0..(@product.photos.length-1) %>
+
+							<% if i == 0 %>
+								<div class="carousel-item active">
+							<% else %>
+								<div class="carousel-item">
+							<% end %>
+							    <%= image_tag(@product.photos[i].url, class: "img-circle",
+									alt: "#{i} slide", height: '300', width: '800', 
+									class: "d-block img-fluid") %>
+							</div>
+						<% end %>
+						</div>
+						<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="sr-only">Anterior</span>
+						</a>
+						<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+						    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+						    <span class="sr-only">Próxima</span>
+						</a>
+					</div>
+
 					<table class="table table-stripped table-bordered">
 						<tbody>
 							<tr>
@@ -45,7 +54,9 @@
 							</tr>
 							<tr>
 								<td>
-									<b><em>Descrição</em></b>
+									<b><em>Preço: </em></b><em><%= "R$ #{@product.price}" %></em>
+									<br />
+									<b><em>Descrição:</em></b>
 									<ul>
 										<li style="list-style-type: none;">
 											<div style="width: 800px; height: 250px;">
