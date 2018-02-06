@@ -1,9 +1,9 @@
 class ProductsController < ApplicationController
-	before_action :authenticate_user!, only: [:new, :create]
+	before_action :authenticate_user!, except: [:index, :show]
 
 	def index
 		@products = Product.search(params[:term], 
-			current_user.id).paginate(:page => params[:page])
+			current_user).paginate(:page => params[:page])
 	end
 
 	def new
@@ -15,7 +15,7 @@ class ProductsController < ApplicationController
 		if @product.save
 			flash.now[:success] = "Produto adicionado com sucesso"
 		end
-		@products = Product.search(nil).paginate(:page => params[:page])
+		@products = Product.search(nil, current_user).paginate(:page => params[:page])
 		render 'index'
 	end
 
@@ -32,7 +32,7 @@ class ProductsController < ApplicationController
 	def update
 		@product = Product.find(params[:id])
 		if @product.update_attributes(product_params)
-			@products = Product.search(nil).paginate(:page => params[:page])
+			@products = Product.search(nil, current_user).paginate(:page => params[:page])
 			redirect_to	root_path
 		else
 			render 'edit'

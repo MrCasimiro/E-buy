@@ -9,12 +9,16 @@ class Product < ApplicationRecord
 
 	private
 
-	def self.search(term, client_id)
+	def self.search(term, client)
 		if term
-			where('name LIKE ? AND user_id != ?', "%#{term}%", 
-				client_id).order('id DESC')
+			if client 
+				where('name LIKE ?', "%#{term}%")
+			else 
+				where('name LIKE ? AND user_id != ?', "%#{term}%", 
+				client.id).order('id DESC')
+			end
 		else
-			where.not(user_id: client_id).order('id DESC')
+			client == nil ? order('id DESC') : where.not(user_id: client.id) 
 		end
 	end
 end
