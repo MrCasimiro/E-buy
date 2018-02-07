@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>WebSeller</title>
+    <title>E-buy</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-
   </head>
 
   <body>
-		<%= render 'shared/navbar' %>
-		<div class="row" align="center">
-			<div class="wrapper">
-				<% flash.each do |key, value| %>
-					<div class="alert alert-<%= key %>"><%= value %></div>
-				<% end %>
-			</div>
-		</div>
+    <%= render 'shared/navbar' %>
+    <div class="row-fluid" align="center" style="height: 56px">
+      <% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %>"><%= value %></div>
+      <% end %>
+    </div>
+    <div class="container-fluid" style="height: 100%">
+      <div class="row">
+        <div class="col-1 bg-light" style="padding: 0px; min-width: 200px; min-height: :100%">
+          <%= render 'shared/sidebar' %>
+        </div>
+        <div class="col" style="padding: 0px">
+        </div>
+        <%= yield %> 
+      </div>
+    </div>
 
-		<%= yield %>
   </body>
 </html>

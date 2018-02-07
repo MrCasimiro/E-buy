@@ -7,9 +7,11 @@ class Product < ApplicationRecord
   has_many :images, dependent: :destroy
   accepts_nested_attributes_for :images, allow_destroy: true
 
-  validates :name, :description, :price, presence: true
+  validates :name, :description, :images, presence: true
+  validates :price, presence: true, numericality: { greater_than: 0,
+                                                    less_than: 1_000_000 }
 
-  self.per_page = 5
+  self.per_page = 3
 
   def self.search(term, client)
     if term

@@ -15,13 +15,17 @@ class ImagesController < ApplicationController
     @images = Image.where(product_id: params[:product_id])
     @new_image = Image.new(product_id: params[:product_id])
     @image = Image.new(image_params)
-    flash.now[:success] = 'Image adicionada com sucesso' if @image.save
+    flash.now[:info] = @image.save ? 'Imagem adicionada' : 'Ocorreu um erro'
     render 'new'
   end
 
   def destroy
     image = Image.find(params[:id])
-    image.destroy!
+    if Product.find(image.product_id).images.length > 1
+      flash[:info] = image.destroy ? 'Imagem removida' : 'Ocorreu um erro'
+    else
+      flash[:danger] = 'O produto não pode ficar sem foto'
+    end
     redirect_to root_path
   end
 

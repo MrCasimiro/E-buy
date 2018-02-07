@@ -1,21 +1,41 @@
-<div class="row" align="center">
-	<div class="col-md-12">
-		<h2>Adicionar foto</h2>
-		<%= simple_form_for [@images[0].product, @new_image], :html => {:class => 'form-basic'} do |p| %>
-			<%= p.file_field :photo, accept: "image/jpeg, image/jpg, image/gif,
-					image/png" %>
-			<%= p.hidden_field :product_id, value: @images[0].product_id %>
-			<%= p.button :submit, "Adicionar imagem!", class: "btn btn-primary" %>
-		<% end %>
-		<br />
-		<h2>Remover Foto</h2>
-		<em><h6>Obs: Antes de remover todas as fotos, deixe ao menos uma salva</h6></em> 
-		<% for p in @images %>
-			<%= image_tag(p.photo.thumb.url, class: "img-circle", size: 120, align: "middle") %>
-			<%= button_to 'Remover foto', { action: :destroy, id: p.id, product_id: p.product_id,
-			 remote: true },
-				method: :delete, class: "btn btn-danger" %>
-		<% end %>
-		<br />
-	</div>
+<div class="col-10" style="margin: 0px; padding: 0px">
+  <b><h2 class="text-primary" align="center">Editar informações do produto</h2></b>
+  <div class="bg-light" align="center">
+    <%= simple_form_for [@images[0].product, @new_image], :html => {:class => 'form-basic'} do |p| %>
+      <%= p.file_field :photo, accept: "image/jpeg, image/jpg, image/gif,
+        image/png" %>
+      <%= p.hidden_field :product_id, value: @images[0].product_id %>
+      <%= p.button :submit, "Adicionar imagem!", class: "btn btn-primary" %>
+    <% end %>
+
+    <br />
+    <h2>Remover Foto</h2>
+    <em><h6>Obs: Antes de remover todas as fotos, deixe ao menos uma salva</h6></em>
+
+    <table style="max-width: 100%">
+      <tr>
+        <%  count = -1
+            check = false 
+            for p in @images
+            count += 1 
+        %>
+          <!-- A little trick, keeps every 6 images in a same row, after six images closes the actual row and opens another one -->
+          <% if count % 6 == 0 %>
+            <% check = false %>
+            </tr>
+          <% end %>
+          <% if count % 6 == 0 %>
+            <tr>
+          <% end %>
+              <td style="padding: 1%">
+                <div class="col" style="width: 120px; padding: 0px">
+                  <%= image_tag(p.photo.thumb.url, class: "img-circle", size: 120) %>
+                  <%= button_to 'Remover foto', { action: :destroy, id: p.id, product_id: p.product_id,
+                    remote: true }, method: :delete, class: "btn btn-danger" %>
+                </div>
+              </td>
+        <% end %>
+      </tr>
+    </table>
+  </div>
 </div>

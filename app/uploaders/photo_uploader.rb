@@ -22,6 +22,10 @@ class PhotoUploader < CarrierWave::Uploader::Base
   #   # do something
   # end
 
+  def cache_dir
+    "#{Rails.root}/tmp/uploads"
+  end
+
   # Create different versions of your uploaded files:
   version :thumb do
     process resize_to_fit: [200, 200]

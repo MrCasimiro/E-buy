@@ -1,6 +1,5 @@
-<%= stylesheet_link_tag "sidebar" %>
-<div class="sidenav" style="text-align: center;">
-	<div style="padding-top: 50px;">
+
+	<div style="padding-top: 50px; min-height: 100%" align="center">
 		<%= form_tag(products_path, method: :get) do %>
 			<%= text_field_tag :term, params[:term], :placeholder => "Nome do produto" %>
 			<div style="text-align: center;">
@@ -9,4 +8,4 @@
 			</div>
 		<% end %>
 	</div>
-</div>
+

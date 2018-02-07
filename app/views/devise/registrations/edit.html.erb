@@ -1,6 +1,7 @@
-<div class="row" align="center">
-  <div class="col-md-12">    
-    <h2>Editar <%= resource_name.to_s.humanize %></h2>
+<div class="col-10" style="margin: 0px; padding: 0px">
+  <b><h2 class="text-primary" align="center">Editar informações da conta</h2></b>
+    <div class="bg-light" align="center">
+    <h2>Editar Usuário</h2>
 
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
       <%= devise_error_messages! %>
@@ -19,29 +20,29 @@
         <%= f.password_field :password, autocomplete: "off", :placeholder => "Nova Senha" %>
         <% if @minimum_password_length %>
           <br />
-          <em><%= @minimum_password_length %> characters minimum</em>
+          <em><%= @minimum_password_length %> caracteres no mínimo</em>
         <% end %>
       </div>
 
       <div class="field">
         <%= f.password_field :password_confirmation, autocomplete: "off", 
-          :placeholder => "Confirmar senha" %>
+          :placeholder => "Confirmar nova senha" %>
       </div>
 
       <div class="field">
         <i>(Precisamos da sua antiga senha para que as mudanças sejam efetuadas)</i><br />
         <%= f.password_field :current_password, autocomplete: "off", :placeholder => "Senha atual" %>
       </div>
-
+      <br />
       <div class="actions">
-        <%= f.submit "Atualizar" %>
+        <%= f.submit "Atualizar", class: "btn btn-primary"  %>
       </div>
     <% end %>
     <br />
     <h3>Cancelar a conta</h3>
 
-    <p>Infeliz? <%= button_to "Cancelar minha conta",
-     registration_path(resource_name), data: { confirm: "Tem certeza?" }, method: :delete %></p>
+    <p>Não está feliz? <%= button_to "Cancelar minha conta",
+     registration_path(resource_name), data: { confirm: "Tem certeza?" },  method: :delete, class: "btn btn-danger" %></p>
 
     <%= link_to "Voltar", :back %>
   </div>

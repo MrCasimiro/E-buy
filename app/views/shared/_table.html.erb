@@ -1,74 +1,68 @@
-<%= stylesheet_link_tag "index" %>
+<div class="col-10" style="margin: 0px; padding: 0px">
+  <b><h2 class="text-primary" align="center">Lista de produtos</h2></b>
+  <table class="table bg-light" style="border: transparent">
+    <tbody style="margin: 0px">
+      <%  count = 0
+          @products.each do |prod|
+          count += 1      
+      %>
+        <tr style="background-color: transparent; border-bottom: transparent">
+          <td style="border-right: transparent; border-bottom: transparent; border-left: transparent; height: 140px; width: 200px;">
+            <%= image_tag(prod.images[0].photo.url, class: "img-circle",
+                          height: 140, width: 200) %>
+            <div class="row">
+              <div class="col-12" align="center" style="padding-top: 10px">
+                <% if action_name == "my_products" %>
+                  <%= link_to product_new_photos_path(product_id: prod.id) do %>
+                    <button class="btn btn-info">Editar fotos</button>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </td>
 
-<div class="container">
-	<div class="row">
-		<div class="col">
-			<%= render 'shared/sidebar' %>
-		</div>
-		<div class="col col-lg-10" style="top: 40px">
-			<div class="row">
-				<div class="col-lg-8">
-    	    		<h1 class="page-header">Lista de produtos</h1>
-            		<table class="table table-stripped table-bordered">
-      					<tbody>
-      						<% 	count = 0
-      							@products.each do |prod|
-      							count += 1
-      						%>
-	        					<tr>
-	          						<td>
-	          							<%= image_tag(prod.images[0].photo.url, class: "img-circle",
-	          								height: 140, width: 200) %>
-	          						</td>
-	          						<td style="text-align: center; width: 600px">
-	          							<div style="text-align: center; width: 400px">
-											<strong>
-												<%= link_to "#{prod.name}", product_path(id: prod.id) %>
-											</strong>
-										</div>
-										<div style="float: left; padding-top: 90px;">
-											<b><em><%= "R$ #{prod.price}" %></em></b>
-										</div>
-										<div style="float: right; padding-top: 90px;">
-											<em>
-												<b><%= prod.created_at.strftime("Criado em: %d/%m/%y") %></b>	
-											</em>
-										</div>
-	          						</td>
-	          						<% if action_name == "my_products" %>
-	          							<td style="border: hidden; border-left: 1px;">
-	          								<ul style="list-style-type: none;">
-	          									<li>
-	          										<%= link_to edit_product_path(id: prod.id) do %>
-	          											<button class="btn btn-success">Editar descrição</button>
-	          										<% end %>
-	          									</li>
-	          									
-	          									<li>
-	          										<%= link_to product_new_photos_path(product_id: prod.id) do %>
-	          											<button class="btn btn-info">Editar fotos</button>
-	          										<% end %>
-	          									</li>
-	          									
-	          									<li>
-	          										<%= button_to 'Remover', { action: :destroy,
-	          										 	id: prod.id, remote: true }, method: :delete, class: "btn btn-danger" %>
-	          									</li>
-	          								</ul>
-	          							</td>
-					          		<% end %>
-	        					</tr>
-	        				<% end %>
-        				</tbody>
-        			</table>
-        			<div class="digg_pagination">
-    					<div class="page_info">
-      						<%= page_entries_info @products %>
-    					</div>
-    					<%= will_paginate @products, :container => false %>
-  					</div>
-        		</div>
-        	</div>
-		</div>
-	</div>
+          <td style="border-right: transparent; border-left: transparent; border-bottom: transparent;">
+            <div class="container" style="min-height: 100%">
+              <div class="row">
+                <div class="col-12">
+                  <h4 align="center"><%= link_to "#{prod.name}", product_path(id: prod.id) %></h4>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12" align="center" style="padding-top: 25px">
+                  <% if action_name == "my_products" %>
+                    <%= link_to edit_product_path(id: prod.id) do %>
+                      <button class="btn btn-success">Editar descrição</button>
+                    <% end %>
+                  <% end %>
+                </div>  
+              </div>
+              <div class="row" style="padding-top: 25px">
+                <div class="col-6">
+                  <h6 align="left"><em><b>Preço: <%= "R$ #{prod.price}" %></b></em></h6>
+                </div>
+                <div class="col-6">
+                  <h6 align="right">
+                    <em>
+                      <b><%= prod.created_at.strftime("Criado em: %d/%m/%y") %></b> 
+                    </em>
+                  </h6>
+                </div>              
+              </div>
+            </div>
+          </td>
+
+          <td style="border-right: transparent; border-left: transparent; border-bottom: transparent; width: 15%">
+            <div class="col" style="padding-top: 61px">
+              <% if action_name == "my_products" %>
+                <%= button_to 'Remover produto', { action: :destroy,
+                  id: prod.id, remote: true }, method: :delete, class: "btn btn-danger" %>
+              <% end %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= render 'shared/pagination' %>
 </div>

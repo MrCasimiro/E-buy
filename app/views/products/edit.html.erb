@@ -1,15 +1,20 @@
-<div class="row" align="center">
-	<div class="col-md-12">
-		<% @images.each do |p| %>
-			<%= image_tag(p.photo.url, size: 120) %><br />
-		<% end %>
-		<br />
-		<%= simple_form_for @product do |p| %>
-			<%= p.hidden_field :user_id, value: current_user.id %>
-			<%= p.input :name, placeholder: "E-mail", label: "E-mail:" %>
-			<%= p.input :price, placeholder: "Preço", label: "Preço: R$" %>
-			<%= p.input :description, placeholder: "Descrição", label: "Descrição" %>
-		<%= p.button :submit, "Atualizar produto!", class: "btn btn-primary" %>
-		<% end %>
-	</div>
+<div class="col-10" style="margin: 0px; padding: 0px">
+  <b><h2 class="text-primary" align="center">Editar informações do produto</h2></b>
+    <div class="bg-light" align="center">
+  		<% @images.each do |p| %>
+  			<%= image_tag(p.photo.url, size: 120) %>
+  		<% end %>
+		  <br />
+  		<%= simple_form_for @product do |p| %>
+  			<%= p.hidden_field :user_id, value: current_user.id %>
+        <%= p.label "Nome:" %>
+  			<%= p.input :name, placeholder: "Nome", label: false %><br />
+        <%= p.label "Preço:" %>
+  			<%= p.input :price, placeholder: "Preço", label: false %><br />
+        <%= p.label "Descrição do produto:" %>
+  			<%= p.input :description, placeholder: "Descrição", label: false, input_html: {rows: 10, cols: 50} %>
+  		<%= p.button :submit, "Atualizar produto!", class: "btn btn-primary" %>
+  		<% end %>
+    </div>
+  </div>
 </div>

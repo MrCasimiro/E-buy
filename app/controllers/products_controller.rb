@@ -17,7 +17,7 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
-    flash.now[:success] = 'Produto adicionado com sucesso' if @product.save
+    flash.now[:info] = @product.save ? 'Produto adicionado' : 'Ocorreu um erro'
     @products = Product.search(nil,
                                current_user).paginate(page: params[:page])
     render 'index'
@@ -25,7 +25,9 @@ class ProductsController < ApplicationController
 
   def edit
     tmp = Product.find(params[:id])
-    raise ActionController::RoutingError, 'Not Found' if tmp.user_id != current_user.id
+    if tmp.user_id != current_user.id
+      raise ActionController::RoutingError, 'Not Found'
+    end
     @product = tmp
     @images = @product.images
   end
@@ -33,12 +35,13 @@ class ProductsController < ApplicationController
   def update
     @product = Product.find(params[:id])
     if @product.update_attributes(product_params)
+      flash[:info] = 'Produto atualizado'
       @products = Product.search(nil,
                                  current_user).paginate(page: params[:page])
       redirect_to	root_path
-    else
-      render 'edit'
     end
+    flash.now[:info] = 'Ocorreu um erro'
+    render 'edit'
   end
 
   def show
@@ -48,7 +51,7 @@ class ProductsController < ApplicationController
 
   def destroy
     @product = Product.find(params[:id])
-    @product.destroy!
+    flash[:info] = @product.destroy ? 'Produto removido' : 'Ocorreu um erro'
     redirect_to root_path
   end
 

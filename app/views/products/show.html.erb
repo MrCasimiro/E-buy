@@ -1,75 +1,80 @@
-<%= stylesheet_link_tag "index" %>
+<div class="col-10" style="margin: 0px; padding: 0px">
+  <b><h1 class="page-header" align="left"><%= "#{@product.name}" %></h1></b>
+  <em><h4><%= @product.created_at.strftime("Criado em: %d/%m/%y") %></h4></em>
+  <table class="table bg-dark" style="border: transparent">
+    <tbody style="margin: 0px">
+      <tr style="background-color: transparent; border-bottom: transparent">
+          <td style="height: 140px; border-top: transparent;">
+            
+            <div class="row">
+              <div class="col-12" align="center" style="padding-top: 10px">
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel"
+                    style="margin-left: 150px; height: 300px margin: auto">
+                  <div class="carousel-inner" role="listbox">
+                    <% for i in 0..(@product.images.length-1) %>
 
-<div class="container">
-	<div class="row">
-		<div class="col">
-			<%= render 'shared/sidebar' %>
-		</div>
-		<div class="col col-lg-10" style="top: 40px">
-			<div class="row">
-				<div class="col-lg-8">
-					<h1 class="page-header"><%= "#{@product.name}" %></h1>
-					<em><%= @product.created_at.strftime("Criado em: %d/%m/%y") %></em>
+                      <% if i == 0 %>
+                        <div class="carousel-item active">
+                      <% else %>
+                        <div class="carousel-item">
+                      <% end %>
+                          <%= image_tag(@product.images[i].photo.url, class: "img-circle",
+                                    alt: "#{i} slide", height: '300', width: '600', 
+                                    class: "d-block img-fluid") %>
+                        </div>
+                    <% end %>
+                  </div>
+                  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Anterior</span>
+                  </a>
+                  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Próxima</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </td>
 
-					<div id="carouselExampleControls" class="carousel slide" data-ride="carousel"
-						style="margin-left: 150px; height: 300px margin: auto">
-						<div class="carousel-inner" role="listbox">
-						<% for i in 0..(@product.images.length-1) %>
+          <td style="width: 5%; background-color: white; border-top: transparent;"></td>
 
-							<% if i == 0 %>
-								<div class="carousel-item active">
-							<% else %>
-								<div class="carousel-item">
-							<% end %>
-							    <%= image_tag(@product.images[i].photo.url, class: "img-circle",
-									alt: "#{i} slide", height: '300', width: '800', 
-									class: "d-block img-fluid") %>
-							</div>
-						<% end %>
-						</div>
-						<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-							<span class="sr-only">Anterior</span>
-						</a>
-						<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-						    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-						    <span class="sr-only">Próxima</span>
-						</a>
-					</div>
-
-					<table class="table table-stripped table-bordered">
-						<tbody>
-							<tr>
-								<td >
-									<div style="text-align: center;">
-										<b><em>Informações do vendedor:</em></b>
-									</div>
-									<div style="float: left;">
-										<b>Nome: </b><em><%= @salesman.name %></em>
-									</div>
-									<div style="float: right;">
-										<b>Telefone: </b><em><%= @salesman.phone %></em>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<b><em>Preço: </em></b><em><%= "R$ #{@product.price}" %></em>
-									<br />
-									<b><em>Descrição:</em></b>
-									<ul>
-										<li style="list-style-type: none;">
-											<div style="width: 800px; height: 250px;">
-												<%= @product.description %>
-											</div>
-										</li>
-									</ul>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
+          <td style="width: 20%; border-top: transparent; padding-left: 2%; background-color: #7F7F7F">
+            <div class="row" style="padding-top: 20%">
+              <h4><b>Nome: </b><em><%= @salesman.name %></em></h4>
+            </div>
+            <div class="row" style="padding-top: 20%">
+              <h5><b>Telefone: </b><em><%= @salesman.phone %></em></h5>
+            </div>
+            <div class="row" style="padding-top: 30%">
+              <h5 style="float: left;"><b>Preço: </b><em><%= "R$ #{@product.price}" %></em></h5>
+            </div>
+            <div class="row" style="">
+              <div class="col" style="text-align: center">
+                <% if current_user.nil? || @salesman.id != current_user.id %>
+                  <button class="btn btn-primary">Comprar</button>
+                <% else %>
+                  <button class="btn btn-secondary">Comprar</button>
+                <% end %>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3" style= "padding-top: 2%; border-top: transparent; background-color: white"></td>
+        </tr>
+        <tr class="bg-light">
+          <td colspan="3">
+            <h3><b>Descrição do produto:</b></h3>
+          </td>
+        </tr>
+        <tr class="bg-light">
+          <td colspan="3">
+            <div>
+              <h5><%= @product.description %></h5>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
 </div>
